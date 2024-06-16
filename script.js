@@ -12,17 +12,28 @@ function createGrid(size) {
     }
 }
 
-function color(value) {
-    container.addEventListener("mouseover", (event) => {
+function setColor(value) {
+    container.removeEventListener("mouseover", handleEvent);
+    function handleEvent(event) {
         if (event.target.classList.contains("grid")) {
-            event.target.style.backgroundColor = value;
+            event.target.style.backgroundColor = typeof value === "function"? value(): value;
         }
-    });
+    }
+    container.addEventListener("mouseover", handleEvent);
 }
 
 function getSize() {
     let slider = document.querySelector("#size-range");
     slider.addEventListener("input", (event) => createGrid(event.target.value));
+}
+
+function colorGenerator() {
+    const maxVal = 0xFFFFFF;
+    let color = Math.random() * maxVal;
+    color = Math.floor(color);
+    color = color.toString(16);
+    color = color.padStart(6, '0');
+    return `#${color}`;
 }
 
 function toolbar() {
@@ -36,10 +47,13 @@ function toolbar() {
             }
             switch (event.target.id) {
                 case "brush":
-                    color("black");
+                    setColor("black");
                     break;
                 case "eraser":
-                    color("white");
+                    setColor("white");
+                    break;
+                case "rainbow":
+                    setColor(colorGenerator);
                     break;
                 case "clear":
                     let grid = document.querySelectorAll(".grid");
@@ -58,5 +72,5 @@ function toolbar() {
 const container = document.querySelector(".container");
 createGrid(16);
 getSize();
-color("black");
+setColor("black");
 toolbar();
