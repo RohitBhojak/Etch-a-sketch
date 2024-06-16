@@ -5,7 +5,7 @@ function createGrid(size) {
         row.classList.add("row");
         for (let j = 0; j < size; j++) {
             let square = document.createElement("div");
-            square.classList.add("grid");
+            square.classList.add("grid", "gridlines");
             row.append(square);
         }
         container.append(row);
@@ -21,16 +21,8 @@ function color(value) {
 }
 
 function getSize() {
-    let button = document.querySelector("#size");
-    button.addEventListener("click", () => {
-        let size = prompt("Enter size (Smaller than 100) : ");
-        size = parseInt(size);
-        if (size > 0 && size < 100) {
-            createGrid(size);
-        } else {
-            alert("Invalid size!");
-        }
-    })
+    let slider = document.querySelector("#size-range");
+    slider.addEventListener("input", (event) => createGrid(event.target.value));
 }
 
 function toolbar() {
