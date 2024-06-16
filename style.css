@@ -1,21 +1,36 @@
-body {
+body, .draw-area, .toolbar {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-#size {
+#size, .tool {
     margin-top: 40px;
     height: 50px;
     width: 150px;
     border-radius: 25px;
     background-color: white;
-    font-size: 16px;
+    font-size: 18px;
 }
 
-#size:hover {
-    background-color: aliceblue;
+.toolbar {
+    padding-top: 40px;
+}
+
+#size:hover, .tool:hover {
+    background-color: gray;
+    color: white;
+}
+
+.active {
+    background-color: black;
+    color: white;
+}
+
+.super-container {
+    display: flex;
+    gap: 100px;
 }
 
 .container {
@@ -32,6 +47,6 @@ body {
     flex: 1;
 }
 
-.grid {
+.gridlines {
     border: 1px solid #ccc;
 }
