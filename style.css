@@ -5,19 +5,33 @@ body {
     align-items: center;
 }
 
+#size {
+    margin-top: 40px;
+    height: 50px;
+    width: 150px;
+    border-radius: 25px;
+    background-color: white;
+    font-size: 16px;
+}
+
+#size:hover {
+    background-color: aliceblue;
+}
+
 .container {
-    border: 1px solid black;
-    margin-top: 80px;
+    border: 2px solid black;
+    margin-top: 40px;
+    height: 550px;
+    width: 550px;
     display: flex;
     flex-direction: column;
 }
 
-.row {
+.row, .grid {
     display: flex;
+    flex: 1;
 }
 
 .grid {
-    height: 30px;
-    width: 30px;
-    border: 1px solid black;
+    border: 1px solid #ccc;
 }
