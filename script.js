@@ -13,13 +13,15 @@ function createGrid(size) {
 }
 
 function setColor(value) {
-    container.removeEventListener("mouseover", handleEvent);
+    container.removeEventListener("pointerover", handleEvent);
+    container.removeEventListener("pointerdown", handleEvent);
     function handleEvent(event) {
-        if (event.target.classList.contains("grid")) {
+        if (isDrawing && event.target.classList.contains("grid")) {
             event.target.style.backgroundColor = typeof value === "function"? value(): value;
         }
     }
-    container.addEventListener("mouseover", handleEvent);
+    container.addEventListener("pointerover", handleEvent);
+    container.addEventListener("pointerdown", handleEvent);
 }
 
 function getSize() {
@@ -70,6 +72,14 @@ function toolbar() {
 }
 
 const container = document.querySelector(".container");
+let isDrawing = false;
+container.addEventListener("pointerdown", (event) => {
+    if(event.button === 0) 
+        event.preventDefault();
+        isDrawing = true
+});
+container.addEventListener("pointerup", () => isDrawing = false);
+container.addEventListener("pointerleave", () => isDrawing = false);
 createGrid(16);
 getSize();
 setColor("black");
