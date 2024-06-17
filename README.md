@@ -1,7 +1,7 @@
 # Etch-a-sketch
 Odin project for Etch-a-sketch website
 
-Features :
+Features :\
 -Lets you pick color\
 -Lets you resize the canvas\
 -Rainbow mode for random colors\
