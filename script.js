@@ -49,7 +49,7 @@ function toolbar() {
             }
             switch (event.target.id) {
                 case "brush":
-                    setColor("black");
+                    setColor(colorPicker.value);
                     break;
                 case "eraser":
                     setColor("white");
@@ -83,16 +83,7 @@ container.addEventListener("mouseup", () => isDrawing = false);
 container.addEventListener("mouseleave", () => isDrawing = false);
 
 const colorPicker = document.querySelector("#select-color");
-colorPicker.addEventListener("change", (event) => {
-    setColor(event.target.value);
-    const tool = document.querySelectorAll(".tool:not(#gridlines)");
-    tool.forEach(element => {
-        if (element.id === "brush")
-            element.classList.add("active");
-        else
-            element.classList.remove("active");
-    })
-});
+console.log(colorPicker.value);
 createGrid(16);
 getSize();
 setColor("black");
