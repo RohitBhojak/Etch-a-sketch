@@ -13,15 +13,15 @@ function createGrid(size) {
 }
 
 function setColor(value) {
-    container.removeEventListener("pointerover", handleEvent);
-    container.removeEventListener("pointerdown", handleEvent);
+    container.removeEventListener("mouseover", handleEvent);
+    container.removeEventListener("mousedown", handleEvent);
     function handleEvent(event) {
         if (isDrawing && event.target.classList.contains("grid")) {
             event.target.style.backgroundColor = typeof value === "function"? value(): value;
         }
     }
-    container.addEventListener("pointerover", handleEvent);
-    container.addEventListener("pointerdown", handleEvent);
+    container.addEventListener("mouseover", handleEvent);
+    container.addEventListener("mousedown", handleEvent);
 }
 
 function getSize() {
@@ -73,13 +73,13 @@ function toolbar() {
 
 const container = document.querySelector(".container");
 let isDrawing = false;
-container.addEventListener("pointerdown", (event) => {
+container.addEventListener("mousedown", (event) => {
     if(event.button === 0) 
         event.preventDefault();
         isDrawing = true
 });
-container.addEventListener("pointerup", () => isDrawing = false);
-container.addEventListener("pointerleave", () => isDrawing = false);
+container.addEventListener("mouseup", () => isDrawing = false);
+container.addEventListener("mouseleave", () => isDrawing = false);
 createGrid(16);
 getSize();
 setColor("black");
