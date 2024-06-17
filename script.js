@@ -74,12 +74,25 @@ function toolbar() {
 const container = document.querySelector(".container");
 let isDrawing = false;
 container.addEventListener("mousedown", (event) => {
-    if(event.button === 0) 
+    if(event.button === 0) {
         event.preventDefault();
-        isDrawing = true
+        isDrawing = true;
+    }
 });
 container.addEventListener("mouseup", () => isDrawing = false);
 container.addEventListener("mouseleave", () => isDrawing = false);
+
+const colorPicker = document.querySelector("#select-color");
+colorPicker.addEventListener("change", (event) => {
+    setColor(event.target.value);
+    const tool = document.querySelectorAll(".tool:not(#gridlines)");
+    tool.forEach(element => {
+        if (element.id === "brush")
+            element.classList.add("active");
+        else
+            element.classList.remove("active");
+    })
+});
 createGrid(16);
 getSize();
 setColor("black");
