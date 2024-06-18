@@ -26,7 +26,11 @@ function setColor(value) {
 
 function getSize() {
     let slider = document.querySelector("#size-range");
-    slider.addEventListener("input", (event) => createGrid(event.target.value));
+    slider.addEventListener("input", (event) => {
+        createGrid(event.target.value);
+        let gridlines = document.querySelector("#gridlines");
+        gridlines.classList.add("active");
+    });
 }
 
 function colorGenerator() {
@@ -36,6 +40,10 @@ function colorGenerator() {
     color = color.toString(16);
     color = color.padStart(6, '0');
     return `#${color}`;
+}
+
+function hexToRGB(color) {
+
 }
 
 function toolbar() {
