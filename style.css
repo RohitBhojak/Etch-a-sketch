@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
+
 * {
     box-sizing: border-box;
     font-family: "Pixelify Sans", sans-serif;
@@ -68,17 +69,6 @@ h1 {
     border: 1px solid #ccc;
 }
 
-.footer {
-    position: absolute;
-    bottom: 0;
-    padding: 10px;
-    background-color: gray;
-    color: white;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
-
 input[type="range"] {
     writing-mode: vertical-lr;
     height: 520px;
@@ -115,4 +105,15 @@ input[type="color"]::-webkit-color-swatch-wrapper {
 input[type="color"]::-webkit-color-swatch {
     border-radius: 50%;
     border: none;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    padding: 10px;
+    background-color: gray;
+    color: white;
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
