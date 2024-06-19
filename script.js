@@ -6,6 +6,7 @@ function createGrid(size) {
         for (let j = 0; j < size; j++) {
             let square = document.createElement("div");
             square.classList.add("grid", "gridlines");
+            square.dataset.opacity = "0";
             row.append(square);
         }
         container.append(row);
@@ -42,8 +43,12 @@ function colorGenerator() {
     return `#${color}`;
 }
 
-function hexToRGB(color) {
-
+function hexToRGB(hex) {
+    hex = parseInt(hex.substring(1), 16);
+    let r = (hex >> 16) & 255;
+    let g = (hex >> 8) & 255;
+    let b = hex & 255;
+    return `rgb (${r}, ${g}, ${b})`;
 }
 
 function toolbar() {
@@ -55,7 +60,8 @@ function toolbar() {
                 buttons.forEach(element => element.classList.remove("active"))
                 event.target.classList.add("active");
             }
-            switch (event.target.id) {
+            activeTool = event.target.id;
+            switch (activeTool) {
                 case "brush":
                     setColor(colorPicker.value);
                     break;
@@ -67,7 +73,13 @@ function toolbar() {
                     break;
                 case "clear":
                     let grid = document.querySelectorAll(".grid");
-                    grid.forEach(element => element.style.backgroundColor = "white");
+                    grid.forEach(element => {
+                        element.style.backgroundColor = "white";
+                        element.dataset.opacity = "0";
+                    });
+                    break;
+                case "gradient":
+                    console.log(hexToRGB(colorPicker.value));
                     break;
                 case "gridlines":
                     event.target.classList.toggle("active");
@@ -89,7 +101,7 @@ container.addEventListener("mousedown", (event) => {
 });
 container.addEventListener("mouseup", () => isDrawing = false);
 container.addEventListener("mouseleave", () => isDrawing = false);
-
+let activeTool = "brush";
 const colorPicker = document.querySelector("#select-color");
 colorPicker.addEventListener("change", (event) => {
     setColor(event.target.value);
