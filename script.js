@@ -46,12 +46,16 @@ function colorGenerator() {
     return `#${color}`;
 }
 
-function hexToRGB(hex) {
+function hexToRGBA(hex) {
     hex = parseInt(hex.substring(1), 16);
     let r = (hex >> 16) & 255;
     let g = (hex >> 8) & 255;
     let b = hex & 255;
     return `rgb (${r}, ${g}, ${b})`;
+}
+
+function shade() {
+    
 }
 
 function toolbar() {
@@ -81,8 +85,8 @@ function toolbar() {
                         element.dataset.opacity = "0";
                     });
                     break;
-                case "gradient":
-                    console.log(hexToRGB(colorPicker.value));
+                case "shade":
+                    shade();
                     break;
                 case "gridlines":
                     event.target.classList.toggle("active");
