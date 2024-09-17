@@ -27,10 +27,13 @@ function setColor(value) {
 
 function getSize() {
     let slider = document.querySelector("#size-range");
+    let label = document.querySelector("#size-label");
     slider.addEventListener("input", (event) => {
-        createGrid(event.target.value);
+        let size = event.target.value;
+        createGrid(size);
         let gridlines = document.querySelector("#gridlines");
         gridlines.classList.add("active");
+        label.textContent = `${size} x ${size}`;
     });
 }
 
