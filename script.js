@@ -1,3 +1,12 @@
+function hexToRGBA(hex, alpha = 1) {
+    hex = parseInt(hex.substring(1), 16);
+    let r = (hex >> 16) & 255;
+    let g = (hex >> 8) & 255;
+    let b = hex & 255;
+    
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
 function createGrid(size) {
     container.textContent = "";
     for (let i = 0; i < size; i++) {
@@ -13,16 +22,37 @@ function createGrid(size) {
     }
 }
 
-function setColor(value) {
-    container.removeEventListener("mouseover", handleEvent);
-    container.removeEventListener("mousedown", handleEvent);
+function setColor(value, isShade = false) {
     function handleEvent(event) {
         if (isDrawing && event.target.classList.contains("grid")) {
-            event.target.style.backgroundColor = typeof value === "function"? value(): value;
+            let target = event.target;
+            if (typeof value === "function") {
+                target.style.backgroundColor = value();
+            } else if (isShade) {
+                // Get current opacity or start with 0
+                let currOpacity = parseFloat(target.dataset.opacity) || 0;
+                currOpacity = Math.min(1, currOpacity + 0.1); // Increment opacity by 0.1
+                target.dataset.opacity = currOpacity.toString();
+
+                // Apply shading by adjusting alpha
+                let currColor = target.style.backgroundColor || value;
+                target.style.backgroundColor = hexToRGBA(value, currOpacity);
+            } else {
+                target.style.backgroundColor = value;
+            }
         }
     }
-    container.addEventListener("mouseover", handleEvent);
-    container.addEventListener("mousedown", handleEvent);
+
+    // Attach the event listeners only if they are not already attached
+    if (container._handleEvent !== handleEvent) {
+        container.removeEventListener("mouseover", container._handleEvent);
+        container.removeEventListener("mousedown", container._handleEvent);
+        
+        container.addEventListener("mouseover", handleEvent);
+        container.addEventListener("mousedown", handleEvent);
+        
+        container._handleEvent = handleEvent; // Store reference to prevent duplicates
+    }
 }
 
 function getSize() {
@@ -46,25 +76,13 @@ function colorGenerator() {
     return `#${color}`;
 }
 
-function hexToRGBA(hex) {
-    hex = parseInt(hex.substring(1), 16);
-    let r = (hex >> 16) & 255;
-    let g = (hex >> 8) & 255;
-    let b = hex & 255;
-    return `rgb (${r}, ${g}, ${b})`;
-}
-
-function shade() {
-    
-}
-
 function toolbar() {
     const tools = document.querySelector(".toolbar");
     tools.addEventListener("click", (event) => {
-        if (event.target.tagName == "BUTTON") {
-            if (event.target.id != "gridlines" && event.target.id != "clear") {
+        if (event.target.tagName === "BUTTON") {
+            if (event.target.id !== "gridlines" && event.target.id !== "clear") {
                 const buttons = document.querySelectorAll(".tool:not(#gridlines)");
-                buttons.forEach(element => element.classList.remove("active"))
+                buttons.forEach(element => element.classList.remove("active"));
                 event.target.classList.add("active");
             }
             activeTool = event.target.id;
@@ -86,7 +104,7 @@ function toolbar() {
                     });
                     break;
                 case "shade":
-                    shade();
+                    setColor(colorPicker.value, true);
                     break;
                 case "gridlines":
                     event.target.classList.toggle("active");
@@ -101,13 +119,14 @@ function toolbar() {
 const container = document.querySelector(".container");
 let isDrawing = false;
 container.addEventListener("mousedown", (event) => {
-    if(event.button === 0) {
+    if (event.button === 0) {
         event.preventDefault();
         isDrawing = true;
     }
 });
 container.addEventListener("mouseup", () => isDrawing = false);
 container.addEventListener("mouseleave", () => isDrawing = false);
+
 let activeTool = "brush";
 const colorPicker = document.querySelector("#select-color");
 colorPicker.addEventListener("change", (event) => {
@@ -118,8 +137,9 @@ colorPicker.addEventListener("change", (event) => {
             element.classList.add("active");
         else
             element.classList.remove("active");
-    })
+    });
 });
+
 createGrid(16);
 getSize();
 setColor("black");
