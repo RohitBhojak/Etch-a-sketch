@@ -1,8 +1,8 @@
-# Drawing Grid Project
+# Etch-A-Sketch
 
 ## Overview
 
-The Drawing Grid Project is an interactive web application that lets users create and modify drawings on a grid. Built using HTML, CSS, and JavaScript, it features a set of tools for drawing, erasing, and customizing the grid. Users can choose colors, apply shades, and clear the grid with ease. The project also supports dynamic resizing of the grid to accommodate different user preferences.
+Etch-A-Sketch is an interactive web application that lets users create and modify drawings on a grid. Built using HTML, CSS, and JavaScript, it features a set of tools for drawing, erasing, and customizing the grid. Users can choose colors, apply shades, and clear the grid with ease. The project also supports dynamic resizing of the grid to accommodate different user preferences.
 
 ## Features
 
