@@ -21,3 +21,5 @@ Etch-A-Sketch is an interactive web application that lets users create and modif
 - **Save and Load Drawings**: Implement features to save and load drawings for later use.
 - **Undo/Redo Functionality**: Introduce undo and redo options to manage changes more effectively.
 - **User Profiles and Sharing**: Create user profiles and sharing options to allow users to share their creations with others.
+
+## Live Demo [Click here](https://rohitbhojak.github.io/Etch-a-sketch/)
