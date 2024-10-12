@@ -28,6 +28,7 @@ function setColor(value, isShade = false) {
             let target = event.target;
             if (typeof value === "function") {
                 target.style.backgroundColor = value();
+                target.dataset.opacity = 0;
             } else if (isShade) {
                 // Get current opacity or start with 0
                 let currOpacity = parseFloat(target.dataset.opacity) || 0;
@@ -39,6 +40,7 @@ function setColor(value, isShade = false) {
                 target.style.backgroundColor = hexToRGBA(value, currOpacity);
             } else {
                 target.style.backgroundColor = value;
+                target.dataset.opacity = 0;
             }
         }
     }
